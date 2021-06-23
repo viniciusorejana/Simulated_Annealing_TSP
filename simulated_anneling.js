@@ -135,5 +135,5 @@ function escreverArquivo(data, nome){
     if(!fs.existsSync('./Solucoes_SimulatedAnnealing/')){
         fs.mkdirSync('./Solucoes_SimulatedAnnealing/');
     }
-    fs.appendFileSync('./Solucoes_SimulatedAnnealing/'+nome, data + "\n");
+    fs.appendFileSync('./Solucoes_SimulatedAnnealing/'+nome, data.replace(/["]/g, '') + "\n");
 }
