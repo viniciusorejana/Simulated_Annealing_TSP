@@ -16,6 +16,24 @@ var melhorDistancia = 0;
 var temperature = 1000;
 var coolingFactor = 0.995;
 
+function shuffle(array) {
+    var currentIndex = array.length,  randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+    }
+
+    return array;
+}
+
 function tamanhoRota(distancia, cidades) {
     if (distancia !== 0) return distancia;
 
@@ -48,6 +66,7 @@ function SimulatedAnnealing(){
 
         var index1 = Math.floor(Math.random()*vizinhanca.length);
         var index2 = Math.floor(Math.random()*vizinhanca.length);
+
         var temp = vizinhanca[index1];
         vizinhanca[index1] = vizinhanca[index2];
         vizinhanca[index2] = temp;
@@ -115,6 +134,8 @@ function iniciar(){
         var temp = fs.readFileSync(diretorio+file).toString().split(/[\n ]/g);
         var temp2 = removeTodasOcorencias(temp, '');
         cidades = criarCidades(temp2);
+        cidades = shuffle(cidades);
+        console.log(cidades);
         melhorCidades =  cidades;
         for(var i = 0; i < quantidade; i++){
             console.log("- Executando solução nº " + (i+1) + " do arquivo: " + file);
@@ -135,5 +156,5 @@ function escreverArquivo(data, nome){
     if(!fs.existsSync('./Solucoes_SimulatedAnnealing/')){
         fs.mkdirSync('./Solucoes_SimulatedAnnealing/');
     }
-    fs.appendFileSync('./Solucoes_SimulatedAnnealing/'+nome, data.replace(/["]/g, '') + "\n");
+    fs.appendFileSync('./Solucoes_SimulatedAnnealing/'+nome, data.replace(/["]/g, '').replace(/[,]/g, ', ') + "\n");
 }
