@@ -11,7 +11,7 @@ const diretorio = './dadosTrab/';
 
 // Caminho e distância atual
 var cidades = [];
-var distaciaAtual = 0;
+var distanciaAtual = 0;
 // Melhor caminho e distância
 var melhorCidades = [];
 var melhorDistancia = 0;
@@ -59,7 +59,7 @@ function iniciar(){
 function SimulatedAnnealing(){
     for (var t = temperature; t > 1; t *= coolingFactor) {
         var vizinhanca = cidades;
-        var vizinDist = distaciaAtual;
+        var vizinDist = distanciaAtual;
 
         var index1 = Math.floor(Math.random()*vizinhanca.length);
         var index2 = Math.floor(Math.random()*vizinhanca.length);
@@ -68,17 +68,17 @@ function SimulatedAnnealing(){
         vizinhanca[index1] = vizinhanca[index2];
         vizinhanca[index2] = temp;
 
-        var distAtual = tamanhoRota(distaciaAtual, cidades);
+        var distAtual = tamanhoRota(distanciaAtual, cidades);
         var distvizinhanca = tamanhoRota(vizinDist, vizinhanca);
 
         if (Math.random() < probabilidade(distAtual, distvizinhanca, t)){
             cidades = vizinhanca;
-            distaciaAtual = vizinDist;
+            distanciaAtual = vizinDist;
         }
 
-        if(tamanhoRota(distaciaAtual, cidades) < tamanhoRota(melhorDistancia, melhorCidades)){
+        if(tamanhoRota(distanciaAtual, cidades) < tamanhoRota(melhorDistancia, melhorCidades)){
             melhorCidades = cidades;
-            melhorDistancia = distaciaAtual;
+            melhorDistancia = distanciaAtual;
         }
     }
 }
