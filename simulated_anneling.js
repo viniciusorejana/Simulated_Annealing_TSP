@@ -78,7 +78,7 @@ function SimulatedAnnealing(){
 
         if(tamanhoRota(distaciaAtual, cidades) < tamanhoRota(melhorDistancia, melhorCidades)){
             melhorCidades = cidades;
-            distaciaAtual = melhorDistancia;
+            melhorDistancia = distaciaAtual;
         }
     }
 }
